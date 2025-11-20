@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repository
+      # 1️⃣ Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -28,15 +28,15 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # 5️⃣ Copy index.html → 404.html for SPA fallback
-      - name: SPA fallback for GitHub Pages
+      # 5️⃣ SPA fallback for GitHub Pages
+      - name: SPA fallback
         run: cp dist/index.html dist/404.html
 
       # 6️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.ALL }}  # token tự động của GitHub Actions
+          personal_token: ${{ secrets.ALL }} # token tự động, an toàn
           publish_dir: ./dist
           user_name: "GitHub Actions"
           user_email: "actions@github.com"
