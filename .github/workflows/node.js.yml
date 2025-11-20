@@ -6,28 +6,37 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
+      # 4️⃣ Build project
       - name: Build project
         run: npm run build
 
+      # 5️⃣ Copy index.html → 404.html for SPA fallback
+      - name: SPA fallback for GitHub Pages
+        run: cp dist/index.html dist/404.html
+
+      # 6️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.ALL }}
+          personal_token: ${{ secrets.GITHUB_TOKEN }}  # token tự động của GitHub Actions
           publish_dir: ./dist
           user_name: "GitHub Actions"
           user_email: "actions@github.com"
