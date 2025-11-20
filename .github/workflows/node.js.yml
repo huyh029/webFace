@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.all }}
+          personal_token: ${{ secrets.ALL }}
           publish_dir: ./dist
           user_name: "GitHub Actions"
           user_email: "actions@github.com"
